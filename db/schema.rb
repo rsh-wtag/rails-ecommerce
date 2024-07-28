@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_26_085357) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_28_072509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,13 +21,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_085357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categories_products", id: false, force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "product_id"
+    t.index ["category_id", "product_id"], name: "index_categories_products_on_category_id_and_product_id", unique: true
+    t.index ["category_id"], name: "index_categories_products_on_category_id"
+    t.index ["product_id"], name: "index_categories_products_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "order_date"
+    t.float "total_amount"
+    t.bigint "user_id", null: false
+    t.integer "status", default: 0
+    t.text "shipping_address"
+    t.integer "shipping_status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "payment_method", null: false
+    t.integer "payment_status", null: false
+    t.date "payment_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id", unique: true
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.float "price"
     t.integer "stock_quantity"
     t.string "SKU"
-    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,4 +72,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_085357) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "orders", "users"
+  add_foreign_key "payments", "orders"
 end
