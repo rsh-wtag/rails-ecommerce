@@ -2,23 +2,34 @@ source 'https://rubygems.org'
 
 ruby '3.0.2'
 
-gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
-
-gem 'sprockets-rails'
-
-gem 'puma', '>= 5.0'
-
-gem 'importmap-rails'
-
-gem 'turbo-rails'
-
-gem 'stimulus-rails'
-
-gem 'jbuilder'
-
-gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
-
+gem 'bcrypt'
 gem 'bootsnap', require: false
+gem 'cancancan'
+gem 'cocoon'
+gem 'devise'
+gem 'doorkeeper'
+gem 'dotenv-rails'
+gem 'faker'
+gem 'grape'
+gem 'grape-entity'
+gem 'i18n'
+gem 'importmap-rails'
+gem 'jbuilder'
+gem 'jquery-rails'
+gem 'pg'
+gem 'phony_rails'
+gem 'pry'
+gem 'puma', '>= 5.0'
+gem 'rack'
+gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
+gem 'rubocop'
+gem 'rubocop-rails'
+gem 'rufus-scheduler'
+gem 'sidekiq'
+gem 'sprockets-rails'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 
 group :development do
   gem 'web-console'
@@ -33,41 +44,3 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
   gem 'rspec-rails'
 end
-
-gem 'pg'
-
-gem 'bcrypt'
-
-gem 'i18n'
-
-gem 'rack'
-
-gem 'dotenv-rails'
-
-gem 'cancancan'
-
-gem 'cocoon'
-
-gem 'devise'
-
-gem 'sidekiq'
-
-gem 'rufus-scheduler'
-
-gem 'doorkeeper'
-
-gem 'faker'
-
-gem 'grape'
-
-gem 'grape-entity'
-
-gem 'jquery-rails'
-
-gem 'phony_rails'
-
-gem 'pry'
-
-gem 'rubocop'
-
-gem 'rubocop-rails'
