@@ -136,6 +136,11 @@ GEM
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (3.4.2)
       i18n (>= 1.8.11, < 2)
     fugit (1.11.0)
@@ -331,6 +336,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     sidekiq (7.3.0)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
@@ -378,7 +385,7 @@ PLATFORMS
   arm-linux
   arm64-darwin
   x86-linux
-  x86_64-darwin
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -391,6 +398,7 @@ DEPENDENCIES
   devise
   doorkeeper
   dotenv-rails
+  factory_bot_rails
   faker
   grape
   grape-entity
@@ -409,6 +417,7 @@ DEPENDENCIES
   rubocop-rails
   rufus-scheduler
   selenium-webdriver
+  shoulda-matchers (~> 5.0)
   sidekiq
   sprockets-rails
   stimulus-rails
@@ -417,7 +426,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.3.0p0
 
 BUNDLED WITH
    2.5.14
