@@ -12,6 +12,7 @@ RSpec.describe CartItem, type: :model do
 
     it 'is not valid without a cart_id' do
       cart_item = build(:cart_item, cart: nil)
+
       expect(cart_item).to_not be_valid
       expect(cart_item.errors[:cart]).to include('must exist')
     end
@@ -38,7 +39,7 @@ RSpec.describe CartItem, type: :model do
       create(:cart_item, cart:, product:)
       duplicate_cart_item = build(:cart_item, cart:, product:)
       expect(duplicate_cart_item).to_not be_valid
-      expect(duplicate_cart_item.errors[:product]).to include('has already been taken')
+      expect(duplicate_cart_item.errors[:product_id]).to include('has already been taken')
     end
   end
 end
