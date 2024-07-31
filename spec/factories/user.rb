@@ -4,7 +4,7 @@ FactoryBot.define do
     email { 'test@example.com' }
     password { 'password' }
     address { '123 Test St' }
-    phone { '01712345678' }
+    phone { '+8801712345678' }
     role { :user }
   end
 end

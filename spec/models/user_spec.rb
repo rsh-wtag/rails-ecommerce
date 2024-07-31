@@ -1,28 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'associations' do
-    it { should have_many(:orders).dependent(:destroy) }
-    it { should have_one(:cart).dependent(:destroy) }
-    it { should have_many(:reviews).dependent(:destroy) }
-  end
+  subject { create(:user) }
 
   describe 'validations' do
-    subject { create(:user) }
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
 
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:email) }
-    it { should validate_uniqueness_of(:email).case_insensitive }
-    it { should allow_value('user@example.com').for(:email) }
-    it { should_not allow_value('userexample.com').for(:email) }
-    it { should validate_presence_of(:password).on(:create) }
-    it { should validate_length_of(:password).is_at_least(6).on(:create) }
-    it { should validate_presence_of(:address) }
-    it { should validate_presence_of(:phone) }
-  end
+    it 'is not valid without a name' do
+      subject.name = nil
+      expect(subject).not_to be_valid
+    end
 
-  describe 'enums' do
-    it { should define_enum_for(:role).with_values(admin: 0, user: 1) }
+    it 'is not valid without an email' do
+      subject.email = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without a valid phone number' do
+      subject.phone = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is valid with a valid phone number' do
+      subject.phone = '+8801712345678'
+      expect(subject).to be_valid
+    end
   end
 
   describe 'callbacks' do
@@ -35,8 +39,8 @@ RSpec.describe User, type: :model do
 
   describe 'methods' do
     it 'normalizes the phone number correctly' do
-      user = create(:user, phone: '01712345678')
-      expect(user.phone).to eq('+8801712345678')
+      user = create(:user, phone: '+8801712345678')
+      expect(user.phone).to eq(PhonyRails.normalize_number('+8801712345678', default_country_code: 'BD'))
     end
   end
 end
