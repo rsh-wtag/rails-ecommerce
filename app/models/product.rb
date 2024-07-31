@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   has_one :cart_item
   has_many :reviews
+  has_one :order_item
 
   validates :name, presence: true
   validates :description, presence: true

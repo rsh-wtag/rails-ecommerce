@@ -9,3 +9,5 @@ Confusion -
 Cart e kono item add korle ki main stock theke item count reduce hobe? naki order complete korle reduce hobe? 
 Buffered obosthay kemne thakbe, deadlock hoite pare, oita kemne solve korbo?
 
+
+Updated uniqueness: true to uniqueness: { scope: :order_id }: Ensures that each product can only appear once per order, but can appear in different orders.
