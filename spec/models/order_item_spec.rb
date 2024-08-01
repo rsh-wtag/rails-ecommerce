@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe 'validations' do
+    let(:order) { create(:order) }
+    let(:product) { create(:product) }
+
     it 'is valid with valid attributes' do
-      order_item = build(:order_item)
+      order_item = build(:order_item, order:, product:, quantity: 2, price: 15.99)
       expect(order_item).to be_valid
     end
 
