@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_one :cart_item
   has_many :reviews
   has_one :order_item
+  has_many_attached :images
 
   validates :name, presence: true
   validates :description, presence: true
