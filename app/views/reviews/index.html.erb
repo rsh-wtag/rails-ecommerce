@@ -1,0 +1,9 @@
+<!-- app/views/reviews/index.html.erb -->
+<h1>Reviews</h1>
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <%= link_to review.product.name, review_path(review) %> - Rating: <%= review.rating %>
+    </li>
+  <% end %>
+</ul>

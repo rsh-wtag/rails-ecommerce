@@ -1,0 +1,8 @@
+<!-- app/views/reviews/show.html.erb -->
+<h1>Review</h1>
+<p><strong>Product:</strong> <%= @review.product.name %></p>
+<p><strong>Rating:</strong> <%= @review.rating %></p>
+<p><strong>Comment:</strong> <%= @review.comment %></p>
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>
