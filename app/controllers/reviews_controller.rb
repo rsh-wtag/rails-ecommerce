@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @product.reviews.build(review_params)
-    @review.user = current_user
+    @review.user = User.first
 
     if @review.save
       redirect_to @product, notice: 'Review was successfully created.'
