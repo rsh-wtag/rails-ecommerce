@@ -18,7 +18,6 @@ gem 'jbuilder'
 gem 'jquery-rails'
 gem 'pg'
 gem 'phony_rails'
-gem 'pry'
 gem 'puma', '>= 5.0'
 gem 'rack'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
@@ -32,6 +31,7 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 
 group :development do
+  gem 'pry'
   gem 'web-console'
 end
 
