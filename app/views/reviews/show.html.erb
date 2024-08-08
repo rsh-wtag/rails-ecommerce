@@ -1,8 +1,17 @@
-<!-- app/views/reviews/show.html.erb -->
-<h1>Review</h1>
-<p><strong>Product:</strong> <%= @review.product.name %></p>
-<p><strong>Rating:</strong> <%= @review.rating %></p>
-<p><strong>Comment:</strong> <%= @review.comment %></p>
+<p>
+  <strong>User ID:</strong>
+  <%= @review.user_id %>
+</p>
 
-<%= link_to 'Edit', edit_review_path(@review) %> |
-<%= link_to 'Back', reviews_path %>
+<p>
+  <strong>Rating:</strong>
+  <%= @review.rating %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @review.comment %>
+</p>
+
+<%= link_to 'Edit', edit_product_review_path(@product, @review) %> |
+<%= link_to 'Back', product_reviews_path(@product) %>

@@ -1,9 +1,7 @@
-<!-- app/views/reviews/_form.html.erb -->
 <%= form_with(model: [@product, @review], local: true) do |form| %>
   <% if @review.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
       <ul>
         <% @review.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -14,12 +12,17 @@
 
   <div class="field">
     <%= form.label :rating %>
-    <%= form.number_field :rating, min: 1, max: 5 %>
+    <%= form.number_field :rating %>
   </div>
 
   <div class="field">
     <%= form.label :comment %>
     <%= form.text_area :comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
   </div>
 
   <div class="actions">

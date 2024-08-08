@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :products do
-    resources :reviews, only: %i[new create index show]
+    resources :reviews
   end
   resources :reviews, only: %i[edit update destroy]
   resources :categories
