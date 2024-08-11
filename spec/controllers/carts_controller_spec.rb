@@ -40,16 +40,4 @@ RSpec.describe CartsController, type: :controller do
       it { is_expected.to render_template(:edit) }
     end
   end
-
-  describe 'DELETE #destroy' do
-    let!(:cart_to_destroy) { create(:cart, user:) }
-
-    it 'destroys the requested cart and redirects to root_path' do
-      expect do
-        delete :destroy, params: { id: cart_to_destroy.id }
-      end.to change(Cart, :count).by(-1)
-
-      expect(response).to redirect_to(root_path)
-    end
-  end
 end

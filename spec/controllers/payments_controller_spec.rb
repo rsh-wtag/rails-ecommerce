@@ -52,7 +52,7 @@ RSpec.describe PaymentsController, type: :controller do
     end
 
     context 'with valid parameters' do
-      it 'creates a new Payment and redirects to the created payment' do
+      it 'creates a new Payment' do
         expect do
           post :create, params: { order_id: order.id, payment: valid_attributes }
         end.to change(Payment, :count).by(1)

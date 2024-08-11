@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :payments, only: %i[new create edit update destroy]
   end
 
+  resources :carts do
+    resources :cart_items
+  end
+
   resources :payments, only: %i[index show]
 
   get 'up' => 'rails/health#show', as: :rails_health_check
