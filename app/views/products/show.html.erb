@@ -26,14 +26,14 @@
 </ul>
 
 <h2>Add to Cart</h2>
-<%= form_with url: user_cart_cart_items_path(user_id: 1), method: :post do |form| %> <!-- Temporarily set to user_id: 1 -->
-  <%= form.hidden_field :product_id, value: @product.id %>
-
+<%= form_with(model: CartItem.new, url: cart_items_path, method: :post) do |form| %>
   <div>
     <%= form.label :user_id, "User ID" %>
-    <%= form.number_field :user_id, min: 1 %>
+    <%= form.text_field :user_id %> <!-- User ID must be manually entered -->
   </div>
-
+  
+  <%= form.hidden_field :product_id, value: @product.id %>
+  
   <div>
     <%= form.label :quantity, "Quantity" %>
     <%= form.number_field :quantity, value: 1, min: 1 %>
@@ -43,4 +43,3 @@
     <%= form.submit "Add to Cart" %>
   </div>
 <% end %>
-

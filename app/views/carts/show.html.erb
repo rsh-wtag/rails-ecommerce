@@ -14,7 +14,6 @@
       <tr>
         <td><%= item.product.name %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.price %></td>
         <td>
           <%= link_to 'Edit', edit_user_cart_cart_item_path(@user, item) %> |
           <%= link_to 'Remove', user_cart_cart_item_path(@user, item), method: :delete, data: { confirm: 'Are you sure?' } %>

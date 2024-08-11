@@ -2,21 +2,25 @@ class CartItemsController < ApplicationController
   before_action :set_cart_item, only: %i[edit update destroy]
 
   def create
-    user_id = params[:user_id] # Get the user ID from form parameters
-    @cart = Cart.find_by(user_id:)
+    user_id = params[:cart_item][:user_id]
+    product_id = params[:cart_item][:product_id]
+    quantity = params[:cart_item][:quantity].to_i
 
-    if @cart.nil?
-      flash[:alert] = 'Cart not found for user.'
-      redirect_to products_path and return
-    end
+    cart = Cart.find_or_create_by(user_id:)
 
-    @cart_item = @cart.cart_items.build(cart_item_params)
+    existing_cart_item = cart.cart_items.find_by(product_id:)
 
-    if @cart_item.save
-      redirect_to user_cart_path(user_id:), notice: 'Item was successfully added to cart.'
+    if existing_cart_item
+      existing_cart_item.update(quantity: existing_cart_item.quantity + quantity)
     else
-      redirect_to user_cart_path(user_id:), alert: 'Failed to add item to cart.'
+      cart.cart_items.create(product_id:, quantity:)
     end
+
+    cart.update(item_count: cart.cart_items.count)
+
+    redirect_to user_cart_path(User.find(user_id)), notice: 'Item was successfully added to the cart.'
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: root_path, alert: 'User not found.'
   end
 
   def edit
@@ -24,7 +28,7 @@ class CartItemsController < ApplicationController
 
   def update
     if @cart_item.update(cart_item_params)
-      redirect_to user_cart_path(@user), notice: 'Cart item was successfully updated.'
+      redirect_to user_cart_path(@cart_item.cart.user), notice: 'Cart item was successfully updated.'
     else
       render :edit
     end
@@ -32,7 +36,7 @@ class CartItemsController < ApplicationController
 
   def destroy
     @cart_item.destroy
-    redirect_to user_cart_path(@user), notice: 'Cart item was successfully removed.'
+    redirect_to user_cart_path(@cart_item.cart.user), notice: 'Cart item was successfully removed.'
   end
 
   private

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users do
-    resource :cart, only: %i[show edit update destroy] do
+    resource :cart, only: %i[create show edit update destroy] do
       resources :cart_items, only: %i[create edit update destroy]
     end
   end
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :carts do
     resources :cart_items
   end
+
+  resources :cart_items, only: [:create]
 
   resources :payments, only: %i[index show]
 
