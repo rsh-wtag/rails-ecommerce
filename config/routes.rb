@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :users do
+    resource :cart, only: %i[show edit update destroy] do
+      resources :cart_items, only: %i[create edit update destroy]
+    end
+  end
+
   resources :products do
     resources :reviews
   end

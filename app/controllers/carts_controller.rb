@@ -1,7 +1,20 @@
 class CartsController < ApplicationController
+  before_action :set_user
   before_action :set_cart, only: %i[show edit update destroy]
 
+  def create
+    @cart = @user.build_cart(cart_params)
+    @cart.item_count = 0
+
+    if @cart.save
+      redirect_to user_cart_path(@user), notice: 'Cart was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def show
+    @cart_items = @cart.cart_items.includes(:product)
   end
 
   def edit
@@ -9,7 +22,7 @@ class CartsController < ApplicationController
 
   def update
     if @cart.update(cart_params)
-      redirect_to @cart, notice: 'Cart was successfully updated.'
+      redirect_to user_cart_path(@user), notice: 'Cart was successfully updated.'
     else
       render :edit
     end
@@ -22,8 +35,12 @@ class CartsController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   def set_cart
-    @cart = Cart.find(params[:id])
+    @cart = @user.cart
   end
 
   def cart_params
