@@ -28,8 +28,8 @@
 <h2>Add to Cart</h2>
 <%= form_with(model: CartItem.new, url: cart_items_path, method: :post) do |form| %>
   <div>
-    <%= form.label :user_id, "User ID" %>
-    <%= form.text_field :user_id %> <!-- User ID must be manually entered -->
+    <%= label_tag :user_id, "User ID" %>
+    <%= text_field_tag :user_id %>
   </div>
   
   <%= form.hidden_field :product_id, value: @product.id %>

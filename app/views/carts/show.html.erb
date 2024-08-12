@@ -16,7 +16,7 @@
         <td><%= item.quantity %></td>
         <td>
           <%= link_to 'Edit', edit_user_cart_cart_item_path(@user, item) %> |
-          <%= link_to 'Remove', user_cart_cart_item_path(@user, item), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= button_to 'Remove', user_cart_cart_item_path(@user, item), method: :delete, data: { confirm: 'Are you sure?' }, form: { class: 'inline-form' } %>
         </td>
       </tr>
     <% end %>

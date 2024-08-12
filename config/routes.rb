@@ -18,11 +18,13 @@ Rails.application.routes.draw do
     resources :payments, only: %i[new create edit update destroy]
   end
 
+  resources :order_items
+
   resources :carts do
     resources :cart_items
   end
 
-  resources :cart_items, only: [:create]
+  resources :cart_items
 
   resources :payments, only: %i[index show]
 
