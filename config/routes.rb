@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
+
+  devise_for :users
+
   resources :users do
     resource :cart, only: %i[create show edit update destroy] do
       resources :cart_items, only: %i[create edit update destroy]
@@ -11,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :reviews, only: %i[edit update destroy]
   resources :categories
-  resources :users
 
   resources :orders do
     resources :order_items
@@ -27,6 +30,4 @@ Rails.application.routes.draw do
   resources :cart_items
 
   resources :payments, only: %i[index show]
-
-  get 'up' => 'rails/health#show', as: :rails_health_check
 end
