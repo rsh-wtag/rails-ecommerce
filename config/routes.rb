@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  resources :reviews, only: %i[edit update destroy]
+  resources :reviews
   resources :categories
 
   resources :orders do
