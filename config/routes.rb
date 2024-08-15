@@ -4,9 +4,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    resource :cart, only: %i[create show edit update destroy] do
-      resources :cart_items, only: %i[create edit update destroy]
+    resource :cart do
+      member do
+        post 'checkout'
+      end
+      resources :cart_items
     end
+    resources :orders
   end
 
   resources :products do
@@ -18,7 +22,6 @@ Rails.application.routes.draw do
 
   resources :orders do
     resources :order_items
-    resources :payments, only: %i[new create edit update destroy]
   end
 
   resources :order_items

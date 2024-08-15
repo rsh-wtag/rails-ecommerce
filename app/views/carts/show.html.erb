@@ -1,5 +1,4 @@
 <h1>Your Cart</h1>
-
 <table>
   <thead>
     <tr>
@@ -14,6 +13,7 @@
       <tr>
         <td><%= item.product.name %></td>
         <td><%= item.quantity %></td>
+        <td><%= item.product.price %></td>
         <td>
           <%= link_to 'Edit', edit_user_cart_cart_item_path(@user, item) %> |
           <%= button_to 'Remove', user_cart_cart_item_path(@user, item), method: :delete, data: { confirm: 'Are you sure?' }, form: { class: 'inline-form' } %>
@@ -22,5 +22,5 @@
     <% end %>
   </tbody>
 </table>
-
 <%= link_to 'Continue Shopping', products_path %>
+<%= button_to 'Checkout', checkout_user_cart_path(@user), method: :post, data: { confirm: 'Are you sure you want to checkout?' }, class: 'btn btn-primary' %>

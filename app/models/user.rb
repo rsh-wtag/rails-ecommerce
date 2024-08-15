@@ -3,8 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 
   has_many :orders, dependent: :destroy
   has_one :cart, dependent: :destroy
@@ -19,6 +17,7 @@ class User < ApplicationRecord
 
   before_save :normalize_phone_number
   after_create :create_cart
+  after_create :create_order
 
   private
 
@@ -28,5 +27,9 @@ class User < ApplicationRecord
 
   def create_cart
     Cart.create(user: self)
+  end
+
+  def create_order
+    Order.create(user: self)
   end
 end

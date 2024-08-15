@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
+  has_many :order_items
   has_one :payment, dependent: :destroy
 
   enum status: { pending: 0, confirmed: 1, cancelled: 2 }

@@ -33,10 +33,36 @@ class CartsController < ApplicationController
     redirect_to root_path, notice: 'Cart was successfully destroyed.'
   end
 
+  def checkout
+    ActiveRecord::Base.transaction do
+      @cart = @user.cart
+      @order = @user.orders.create!(
+        order_date: Date.today,
+        total_amount: @cart.cart_items.sum { |item| item.product.price * item.quantity },
+        shipping_address: @user.address
+      )
+
+      @cart.cart_items.each do |cart_item|
+        @order.order_items.create!(
+          product_id: cart_item.product_id,
+          quantity: cart_item.quantity,
+          price: cart_item.product.price
+        )
+      end
+
+      @cart.cart_items.destroy_all
+      @cart.update(item_count: 0)
+    end
+
+    redirect_to order_path(@order), notice: 'Order was successfully created.'
+  rescue StandardError => e
+    redirect_to user_cart_path(@user), alert: "Failed to checkout: #{e.message}"
+  end
+
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 
   def set_cart
