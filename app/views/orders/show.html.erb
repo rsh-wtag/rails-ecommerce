@@ -1,7 +1,15 @@
 <h1>Order Details</h1>
 <p>Order Date: <%= @order.order_date %></p>
+<p>Order Status: <%= @order.status %></p>
 <p>Total Amount: <%= number_to_currency(@order.total_amount) %></p>
 <p>Shipping Address: <%= @order.shipping_address %></p>
+<p>Shipping Status: <%= @order.shipping_status %></p>
+<% if @order.payment.nil? || @order.payment.payment_status == 'pending' %>
+  <%= button_to 'Make Payment', new_order_payment_path(@order), method: :get, class: 'btn btn-primary' %>
+<% else %>
+  <p>Payment Status: <%= @order.payment.payment_status.titleize %></p>
+  <p>Payment Method: <%= @order.payment.payment_method.humanize %></p>
+<% end %>
 <h2>Order Items</h2>
 <table>
   <thead>

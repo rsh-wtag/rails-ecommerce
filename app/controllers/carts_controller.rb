@@ -50,6 +50,12 @@ class CartsController < ApplicationController
         )
       end
 
+      @order.create_payment!(
+        payment_method: :cash_on_delivery,
+        payment_status: :pending,
+        payment_date: Time.current
+      )
+
       @cart.cart_items.destroy_all
       @cart.update(item_count: 0)
     end

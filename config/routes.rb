@@ -32,5 +32,7 @@ Rails.application.routes.draw do
 
   resources :cart_items
 
-  resources :payments, only: %i[index show]
+  resources :orders do
+    resource :payment
+  end
 end

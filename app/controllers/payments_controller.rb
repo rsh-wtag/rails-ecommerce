@@ -1,50 +1,32 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: %i[show edit update destroy]
-
-  def index
-    @payments = Payment.all
-  end
-
-  def show
-  end
+  before_action :set_order
 
   def new
-    @payment = Payment.new
-  end
-
-  def edit
+    @payment = @order.build_payment
   end
 
   def create
-    @payment = Payment.new(payment_params)
-
-    if @payment.save
-      redirect_to @payment, notice: 'Payment was successfully created.'
+    if @order.payment
+      flash[:alert] = 'Payment already exists for this order.'
+      redirect_to order_path(@order)
     else
-      render :new
+      @payment = @order.build_payment(payment_params.merge(payment_status: :completed, payment_date: Time.current))
+      if @payment.save
+        flash[:notice] = 'Payment was successfully completed.'
+        redirect_to order_path(@order)
+      else
+        render :new
+      end
     end
-  end
-
-  def update
-    if @payment.update(payment_params)
-      redirect_to @payment, notice: 'Payment was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @payment.destroy
-    redirect_to payments_url, notice: 'Payment was successfully destroyed.'
   end
 
   private
 
-  def set_payment
-    @payment = Payment.find(params[:id])
+  def set_order
+    @order = Order.find(params[:order_id])
   end
 
   def payment_params
-    params.require(:payment).permit(:order_id, :payment_method, :payment_status, :payment_date)
+    params.require(:payment).permit(:payment_method)
   end
 end
