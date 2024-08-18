@@ -34,7 +34,6 @@ class CartItemsController < ApplicationController
 
   def destroy
     @cart_item.destroy
-    @cart.update(item_count: @cart.cart_items.count) # Update item_count after destruction
     redirect_to user_cart_path(@cart_item.cart.user), notice: 'Cart item was successfully removed.'
   end
 

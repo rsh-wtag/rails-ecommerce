@@ -13,6 +13,9 @@ class PaymentsController < ApplicationController
       @payment = @order.build_payment(payment_params.merge(payment_status: :completed, payment_date: Time.current))
       if @payment.save
         flash[:notice] = 'Payment was successfully completed.'
+        @user = @order.user
+        @user.cart.cart_items.destroy_all
+        @user.cart.update(item_count: 0)
         redirect_to order_path(@order)
       else
         render :new

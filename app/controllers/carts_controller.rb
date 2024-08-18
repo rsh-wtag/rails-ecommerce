@@ -55,9 +55,6 @@ class CartsController < ApplicationController
         payment_status: :pending,
         payment_date: Time.current
       )
-
-      @cart.cart_items.destroy_all
-      @cart.update(item_count: 0)
     end
 
     redirect_to order_path(@order), notice: 'Order was successfully created.'
