@@ -6,17 +6,35 @@ class CartItemsController < ApplicationController
     product_id = params[:cart_item][:product_id]
     quantity = params[:cart_item][:quantity].to_i
 
-    existing_cart_item = @cart.cart_items.find_by(product_id:)
+    if current_user
+      @cart = current_user.cart
+      existing_cart_item = @cart.cart_items.find_by(product_id:)
 
-    if existing_cart_item
-      existing_cart_item.update(quantity: existing_cart_item.quantity + quantity)
+      if existing_cart_item
+        existing_cart_item.update(quantity: existing_cart_item.quantity + quantity)
+      else
+        @cart.cart_items.create(cart_item_params)
+      end
+
+      @cart.update(item_count: @cart.cart_items.sum(:quantity))
+
+      redirect_to user_cart_path(current_user), notice: 'Item was successfully added to the cart.'
     else
-      @cart_item = @cart.cart_items.create(cart_item_params)
+      @cart = Cart.find_by(id: session[:cart_id]) || Cart.create
+      session[:cart_id] = @cart.id
+
+      existing_cart_item = @cart.cart_items.find_by(product_id:)
+
+      if existing_cart_item
+        existing_cart_item.update(quantity: existing_cart_item.quantity + quantity)
+      else
+        @cart.cart_items.create(cart_item_params)
+      end
+
+      @cart.update(item_count: @cart.cart_items.sum(:quantity))
+
+      redirect_to root_path, notice: 'Item was successfully added to the cart.'
     end
-
-    @cart.update(item_count: @cart.cart_items.count)
-
-    redirect_to user_cart_path(current_user), notice: 'Item was successfully added to the cart.'
   rescue ActiveRecord::RecordNotFound
     redirect_back fallback_location: root_path, alert: 'Cart or product not found.'
   end
@@ -33,17 +51,41 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    @cart_item.destroy
-    redirect_to user_cart_path(@cart_item.cart.user), notice: 'Cart item was successfully removed.'
+    # Find the cart item
+    binding.pry
+    @cart_item = CartItem.find(params[:id])
+
+    # Determine if the user is logged in or not
+    if current_user
+      # Handle removal for logged-in users
+      @cart = current_user.cart
+      @cart_item.destroy
+      redirect_to user_cart_path(current_user), notice: 'Cart item was successfully removed.'
+    else
+      # Handle removal for non-logged-in users
+      @cart = Cart.find(session[:cart_id])
+      @cart_item.destroy
+      redirect_to cart_path(@cart), notice: 'Cart item was successfully removed.'
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: root_path, alert: 'Cart item not found.'
   end
 
   private
 
   def set_cart
-    @cart = current_user.cart
+    @cart = if current_user
+              current_user.cart
+            else
+              Cart.find(session[:cart_id])
+            end
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
   end
 
   def set_cart_item
+    binding.pry
     @cart_item = CartItem.find(params[:id])
   end
 
