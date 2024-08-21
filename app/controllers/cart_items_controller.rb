@@ -51,18 +51,13 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    # Find the cart item
-    binding.pry
     @cart_item = CartItem.find(params[:id])
 
-    # Determine if the user is logged in or not
     if current_user
-      # Handle removal for logged-in users
       @cart = current_user.cart
       @cart_item.destroy
       redirect_to user_cart_path(current_user), notice: 'Cart item was successfully removed.'
     else
-      # Handle removal for non-logged-in users
       @cart = Cart.find(session[:cart_id])
       @cart_item.destroy
       redirect_to cart_path(@cart), notice: 'Cart item was successfully removed.'
@@ -85,7 +80,6 @@ class CartItemsController < ApplicationController
   end
 
   def set_cart_item
-    binding.pry
     @cart_item = CartItem.find(params[:id])
   end
 

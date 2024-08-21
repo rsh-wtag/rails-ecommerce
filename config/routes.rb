@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     resources :order_items
   end
 
+  resources :carts do
+    member do
+      post :checkout
+    end
+  end
+
   resources :order_items
 
   resources :carts do

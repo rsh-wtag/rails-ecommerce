@@ -26,53 +26,50 @@ class CartsController < ApplicationController
   end
 
   def checkout
-    if @cart.item_count.zero? || @cart.item_count.nil?
-      redirect_to cart_path, alert: 'Cannot checkout with an empty cart.'
-      return
-    end
-
     if current_user
-      ActiveRecord::Base.transaction do
-        @order = current_user.orders.create!(
-          order_date: Date.today,
-          total_amount: @cart.cart_items.sum { |item| item.product.price * item.quantity },
-          shipping_address: current_user.address
-        )
-
-        @cart.cart_items.each do |cart_item|
-          @order.order_items.create!(
-            product_id: cart_item.product_id,
-            quantity: cart_item.quantity,
-            price: cart_item.product.price
-          )
-        end
-
-        @order.create_payment!(
-          payment_method: :cash_on_delivery,
-          payment_status: :pending,
-          payment_date: Time.current
-        )
+      if session[:cart_id] && session[:cart_id] != current_user.cart.id
+        merge_carts(current_user.cart, Cart.find(session[:cart_id]))
+        session.delete(:cart_id)
       end
-      session.delete(:cart_id)
-    end
 
-    redirect_to order_path(@order), notice: 'Order was successfully created.'
-  rescue StandardError => e
-    redirect_to cart_path, alert: "Failed to checkout: #{e.message}"
+      result = CheckoutService.new(current_user, current_user.cart).call
+
+      if result[:success]
+        redirect_to order_path(result[:order]), notice: I18n.t('checkout.success')
+      else
+        redirect_to user_cart_path(current_user), alert: I18n.t('checkout.failed', error: result[:error])
+      end
+    else
+      session[:checkout_redirect] = request.path
+      redirect_to new_user_session_path, alert: I18n.t('checkout.sign_in_required')
+    end
   end
 
   private
 
   def set_cart
-    if current_user
-      @cart = current_user.cart
-    else
-      @cart = Cart.find_by(id: session[:cart_id]) || Cart.create
-      session[:cart_id] ||= @cart.id
-    end
+    @cart = if current_user
+              current_user.cart
+            else
+              Cart.find_by(id: session[:cart_id]) || Cart.create
+            end
+    session[:cart_id] ||= @cart.id unless current_user
   end
 
   def cart_params
     params.require(:cart).permit(:item_count)
+  end
+
+  def merge_carts(user_cart, session_cart)
+    session_cart.cart_items.each do |item|
+      existing_item = user_cart.cart_items.find_by(product_id: item.product_id)
+
+      if existing_item
+        existing_item.update(quantity: existing_item.quantity + item.quantity)
+      else
+        item.update(cart_id: user_cart.id)
+      end
+    end
+    session_cart.destroy
   end
 end

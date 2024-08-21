@@ -2,7 +2,8 @@
 <p>Order Date: <%= @order.order_date %></p>
 <p>Order Status: <%= @order.status %></p>
 <p>Total Amount: <%= number_to_currency(@order.total_amount) %></p>
-<p>Shipping Address: <%= @order.shipping_address %></p>
+<p>Shipping Address: <%= binding.pry
+@order.shipping_address %></p>
 <p>Shipping Status: <%= @order.shipping_status %></p>
 <p>Payment Status: <%= @order.payment.payment_status.titleize %></p>
 <% if @order.payment.nil? || @order.payment.payment_status == 'pending' %>
