@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      redirect_to @product, notice: I18n.t('products.create.success')
     else
       render :new
     end
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      redirect_to @product, notice: I18n.t('products.update.success')
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to products_url, notice: 'Product was successfully destroyed.'
+    redirect_to products_url, notice: I18n.t('products.destroy.success')
   end
 
   private

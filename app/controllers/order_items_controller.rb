@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
 
   def update
     if @order_item.update(order_item_params)
-      redirect_to order_path(@order_item.order), notice: 'Order item was successfully updated.'
+      redirect_to order_path(@order_item.order), notice: I18n.t('order_items.update.success')
     else
       render :edit
     end
@@ -14,7 +14,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item.destroy
-    redirect_to order_path(@order_item.order), notice: 'Order item was successfully removed.'
+    redirect_to order_path(@order_item.order), notice: I18n.t('order_items.destroy.success')
   end
 
   private

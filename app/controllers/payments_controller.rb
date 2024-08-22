@@ -7,12 +7,12 @@ class PaymentsController < ApplicationController
 
   def create
     if @order.payment
-      flash[:alert] = 'Payment already exists for this order.'
+      flash[:alert] = I18n.t('payments.create.exists')
       redirect_to order_path(@order)
     else
       @payment = @order.build_payment(payment_params.merge(payment_status: :completed, payment_date: Time.current))
       if @payment.save
-        flash[:notice] = 'Payment was successfully completed.'
+        flash[:notice] = I18n.t('payments.create.success')
         @user = @order.user
         @user.cart.cart_items.destroy_all
         @user.cart.update(item_count: 0)

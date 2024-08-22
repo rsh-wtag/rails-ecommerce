@@ -18,7 +18,7 @@ class CartItemsController < ApplicationController
 
       @cart.update(item_count: @cart.cart_items.sum(:quantity))
 
-      redirect_to user_cart_path(current_user), notice: 'Item was successfully added to the cart.'
+      redirect_to user_cart_path(current_user), notice: I18n.t('cart_items.create.success')
     else
       @cart = Cart.find_by(id: session[:cart_id]) || Cart.create
       session[:cart_id] = @cart.id
@@ -33,10 +33,10 @@ class CartItemsController < ApplicationController
 
       @cart.update(item_count: @cart.cart_items.sum(:quantity))
 
-      redirect_to root_path, notice: 'Item was successfully added to the cart.'
+      redirect_to root_path, notice: I18n.t('cart_items.create.success')
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_back fallback_location: root_path, alert: 'Cart or product not found.'
+    redirect_back fallback_location: root_path, alert: I18n.t('cart_items.create.not_found')
   end
 
   def edit
@@ -44,7 +44,7 @@ class CartItemsController < ApplicationController
 
   def update
     if @cart_item.update(cart_item_params)
-      redirect_to user_cart_path(@cart_item.cart.user), notice: 'Cart item was successfully updated.'
+      redirect_to user_cart_path(@cart_item.cart.user), notice: I18n.t('cart_items.update.success')
     else
       render :edit
     end
@@ -56,14 +56,14 @@ class CartItemsController < ApplicationController
     if current_user
       @cart = current_user.cart
       @cart_item.destroy
-      redirect_to user_cart_path(current_user), notice: 'Cart item was successfully removed.'
+      redirect_to user_cart_path(current_user), notice: I18n.t('cart_items.destroy.success')
     else
       @cart = Cart.find(session[:cart_id])
       @cart_item.destroy
-      redirect_to cart_path(@cart), notice: 'Cart item was successfully removed.'
+      redirect_to cart_path(@cart), notice: I18n.t('cart_items.destroy.success')
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_back fallback_location: root_path, alert: 'Cart item not found.'
+    redirect_back fallback_location: root_path, alert: I18n.t('cart_items.destroy.not_found')
   end
 
   private

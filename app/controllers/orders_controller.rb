@@ -13,6 +13,6 @@ class OrdersController < ApplicationController
   def set_order
     @order = current_user.orders.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to user_orders_path(current_user), alert: 'Order not found.'
+    redirect_to user_orders_path(current_user), alert: I18n.t('orders.show.not_found')
   end
 end

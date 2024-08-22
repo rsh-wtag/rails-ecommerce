@@ -1,31 +1,60 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+    cart_items:
+        create:
+            success: "Item was successfully added to the cart."
+            not_found: "Cart or product not found."
+        update:
+            success: "Cart item was successfully updated."
+        destroy:
+            success: "Cart item was successfully removed."
+            not_found: "Cart item not found."
+
+    carts:
+        create:
+            success: "Cart was successfully created."
+        destroy:
+            success: "Cart was successfully destroyed."
+
+    checkout:
+        success: "Checkout was successful!"
+        failed: "Checkout failed: %{error}"
+        sign_in_required: "You need to sign in before checking out."
+
+    categories:
+        create:
+            success: "Category was successfully created."
+        update:
+            success: "Category was successfully updated."
+        destroy:
+            success: "Category was successfully destroyed."
+
+    order_items:
+        update:
+            success: "Order item was successfully updated."
+        destroy:
+            success: "Order item was successfully removed."
+
+    orders:
+        show:
+            not_found: "Order not found."
+
+    payments:
+        create:
+            exists: "Payment already exists for this order."
+            success: "Payment was successfully completed."
+
+    products:
+        create:
+            success: "Product was successfully created."
+        update:
+            success: "Product was successfully updated."
+        destroy:
+            success: "Product was successfully destroyed."
+
+    reviews:
+        create:
+            success: "Review was successfully created."
+        update:
+            success: "Review was successfully updated."
+        destroy:
+            success: "Review was successfully destroyed."

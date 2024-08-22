@@ -6,7 +6,7 @@ class CartsController < ApplicationController
     session[:cart_id] = @cart.id if @cart.save
 
     if @cart.save
-      redirect_to cart_path, notice: 'Cart was successfully created.'
+      redirect_to cart_path, notice: I18n.t('carts.create.success')
     else
       render :new
     end
@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 
   def destroy
     @cart.destroy
-    redirect_to root_path, notice: 'Cart was successfully destroyed.'
+    redirect_to root_path, notice: I18n.t('carts.destroy.success')
   end
 
   def checkout

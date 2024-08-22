@@ -1,0 +1,60 @@
+bn:
+    cart_items:
+        create:
+            success: "পণ্যটি সফলভাবে কার্টে যোগ করা হয়েছে।"
+            not_found: "কার্ট বা পণ্যটি পাওয়া যায়নি।"
+        update:
+            success: "কার্টের আইটেমটি সফলভাবে আপডেট করা হয়েছে।"
+        destroy:
+            success: "কার্টের আইটেমটি সফলভাবে সরানো হয়েছে।"
+            not_found: "কার্টের আইটেমটি পাওয়া যায়নি।"
+
+    carts:
+        create:
+            success: "কার্ট সফলভাবে তৈরি হয়েছে।"
+        destroy:
+            success: "কার্ট সফলভাবে মুছে ফেলা হয়েছে।"
+
+    checkout:
+        success: "চেকআউট সফল হয়েছে!"
+        failed: "চেকআউট ব্যর্থ হয়েছে: %{error}"
+        sign_in_required: "চেকআউট করার আগে আপনাকে সাইন ইন করতে হবে।"
+
+    categories:
+        create:
+            success: "বিভাগটি সফলভাবে তৈরি হয়েছে।"
+        update:
+            success: "বিভাগটি সফলভাবে আপডেট হয়েছে।"
+        destroy:
+            success: "বিভাগটি সফলভাবে মুছে ফেলা হয়েছে।"
+
+    order_items:
+        update:
+            success: "অর্ডারের আইটেমটি সফলভাবে আপডেট হয়েছে।"
+        destroy:
+            success: "অর্ডারের আইটেমটি সফলভাবে সরানো হয়েছে।"
+
+    orders:
+        show:
+            not_found: "অর্ডার পাওয়া যায়নি।"
+
+    payments:
+        create:
+            exists: "এই অর্ডারের জন্য পেমেন্ট ইতোমধ্যে সম্পন্ন হয়েছে।"
+            success: "পেমেন্ট সফলভাবে সম্পন্ন হয়েছে।"
+
+    products:
+        create:
+            success: "পণ্য সফলভাবে তৈরি হয়েছে।"
+        update:
+            success: "পণ্য সফলভাবে আপডেট হয়েছে।"
+        destroy:
+            success: "পণ্য সফলভাবে মুছে ফেলা হয়েছে।"
+
+    reviews:
+        create:
+            success: "রিভিউ সফলভাবে তৈরি হয়েছে।"
+        update:
+            success: "রিভিউ সফলভাবে আপডেট হয়েছে।"
+        destroy:
+            success: "রিভিউ সফলভাবে মুছে ফেলা হয়েছে।"

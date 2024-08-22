@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
     @review = @product.reviews.build(review_params)
     @review.user = current_user
     if @review.save
-      redirect_to @product, notice: 'Review was successfully created.'
+      redirect_to @product, notice: I18n.t('reviews.create.success')
     else
       render :new
     end
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to @review, notice: 'Review was successfully updated.'
+      redirect_to @review, notice: I18n.t('reviews.update.success')
     else
       render :edit
     end
@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy
-    redirect_to @product, notice: 'Review was successfully destroyed.'
+    redirect_to @product, notice: I18n.t('reviews.destroy.success')
   end
 
   private

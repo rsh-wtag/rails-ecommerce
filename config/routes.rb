@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   devise_for :users
-
+  resource :cart, only: :show
+  resources :cart_items, only: %i[create update destroy]
   resources :users do
     resource :cart do
       member do
