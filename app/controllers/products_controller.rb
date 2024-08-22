@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  load_and_authorize_resource except: %i[index show]
   before_action :set_product, only: %i[show edit update destroy]
 
   def index

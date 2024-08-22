@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :call_custom_action, if: :user_signed_in?
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path, alert: exception.message
+  end
+
   protected
 
   def configure_permitted_parameters
