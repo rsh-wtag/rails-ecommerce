@@ -1,11 +1,15 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: :show
+  before_action :set_order, only: %i[show email_preview]
 
   def index
     @orders = current_user.orders.includes(:order_items)
   end
 
   def show
+  end
+
+  def email_preview
+    @email_content = OrderMailer.order_confirmation(@order).body.raw_source.html_safe
   end
 
   private

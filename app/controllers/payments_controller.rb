@@ -16,6 +16,9 @@ class PaymentsController < ApplicationController
         @user = @order.user
         @user.cart.cart_items.destroy_all
         @user.cart.update(item_count: 0)
+
+        OrderMailer.order_confirmation(@order).deliver_later
+
         redirect_to order_path(@order)
       else
         render :new

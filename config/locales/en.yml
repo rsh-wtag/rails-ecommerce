@@ -58,3 +58,10 @@ en:
             success: "Review was successfully updated."
         destroy:
             success: "Review was successfully destroyed."
+
+    order_mailer:
+        order_confirmation:
+            subject: "Order Confirmation - Order ID: %{order_id}"
+            heading: "Your Order is Confirmed!"
+            message: "Thank you for shopping with us. Your order with ID %{order_id} has been confirmed."
+            thanks: "We appreciate your business and hope you enjoy your purchase!"

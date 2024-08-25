@@ -42,4 +42,10 @@ Rails.application.routes.draw do
   resources :orders do
     resource :payment
   end
+
+  resources :orders do
+    member do
+      get :email_preview
+    end
+  end
 end
