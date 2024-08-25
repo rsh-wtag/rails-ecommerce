@@ -48,4 +48,14 @@ Rails.application.routes.draw do
       get :email_preview
     end
   end
+
+  resource :dashboard, only: [:show], controller: 'users', as: 'user_dashboard'
+
+  # Admin routes
+  namespace :admin do
+    resource :dashboard, only: [:show], controller: 'users', as: 'admin_dashboard'
+    resources :orders, only: %i[index show update destroy]
+    resources :products, only: %i[index new create edit update destroy]
+    resources :categories, only: %i[index new create edit update destroy]
+  end
 end
