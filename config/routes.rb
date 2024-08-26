@@ -60,6 +60,6 @@ Rails.application.routes.draw do
   end
 
   resources :products do
-    delete 'delete_image/:image_id', to: 'products#delete_image', as: :delete_image
+    get 'delete_image/:image_id', to: 'products#delete_image', as: :delete_image
   end
 end

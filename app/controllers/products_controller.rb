@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource except: %i[index show]
-  before_action :set_product, only: %i[show edit update destroy]
+  before_action :set_product, only: %i[show edit update destroy delete_image]
 
   def index
     @products = Product.all
@@ -26,7 +26,13 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
+    if params[:product][:images].present?
+      params[:product][:images].each do |image|
+        @product.images.attach(image)
+      end
+    end
+
+    if @product.update(product_params.except(:images))
       redirect_to @product, notice: I18n.t('products.update.success')
     else
       render :edit
@@ -39,9 +45,8 @@ class ProductsController < ApplicationController
   end
 
   def delete_image
-    @product = Product.find(params[:id])
     @product.images.find(params[:image_id]).purge
-    redirect_to edit_product_path(@product), notice: 'Image removed successfully.'
+    redirect_to edit_product_path(@product), notice: I18n.t('products.images.delete_success')
   end
 
   private
