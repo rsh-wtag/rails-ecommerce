@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[show email_preview update destroy]
-  load_and_authorize_resource except: %i[update destroy]
+  load_and_authorize_resource
 
   def index
     @orders = if current_user.admin?
