@@ -58,4 +58,8 @@ Rails.application.routes.draw do
     resources :products, only: %i[index new create edit update destroy]
     resources :categories, only: %i[index new create edit update destroy]
   end
+
+  resources :products do
+    delete 'delete_image/:image_id', to: 'products#delete_image', as: :delete_image
+  end
 end

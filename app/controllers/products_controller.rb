@@ -38,6 +38,12 @@ class ProductsController < ApplicationController
     redirect_to products_url, notice: I18n.t('products.destroy.success')
   end
 
+  def delete_image
+    @product = Product.find(params[:id])
+    @product.images.find(params[:image_id]).purge
+    redirect_to edit_product_path(@product), notice: 'Image removed successfully.'
+  end
+
   private
 
   def set_product
