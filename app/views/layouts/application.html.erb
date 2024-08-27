@@ -76,8 +76,16 @@
           </div>
         </nav>
       </header>
-      <p><%= flash[:notice] %></p>
       <main class="container mt-5">
+        <% if flash[:notice].present? %>
+          <div class="alert alert-success" role="alert">
+            <%= flash[:notice] %>
+          </div>
+        <% elsif flash[:alert].present? %>
+          <div class="alert alert-danger" role="alert">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
         <%= yield %>
       </main>
       <footer class="footer bg-light text-center py-3">

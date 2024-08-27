@@ -52,6 +52,7 @@ class ProductsController < ApplicationController
   private
 
   def set_product
+    params[:id] = params[:product_id] if params[:product_id].present?
     @product = Product.find(params[:id])
   end
 

@@ -50,6 +50,8 @@ en:
             success: "Product was successfully updated."
         destroy:
             success: "Product was successfully destroyed."
+        images:
+            delete_success: "Image removed successfully."
 
     reviews:
         create:
@@ -66,12 +68,15 @@ en:
             message: "Thank you for shopping with us. Your order with ID %{order_id} has been confirmed."
             thanks: "We appreciate your business and hope you enjoy your purchase!"
 en:
-  products:
-    create:
-      success: "Product was successfully created."
+  orders:
+    index:
+      success: "Orders successfully loaded."
+    show:
+      not_found: "Order not found."
     update:
-      success: "Product was successfully updated."
+      success: "Order was successfully updated."
     destroy:
-      success: "Product was successfully deleted."
-    images:
-      delete_success: "Image removed successfully."
+      success: "Order was successfully destroyed."
+    email_preview:
+      success: "Email preview generated successfully."
+      failed: "Failed to generate email preview."
