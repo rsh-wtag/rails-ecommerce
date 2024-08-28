@@ -6,7 +6,7 @@
 <p>Shipping Status: <%= @order.shipping_status %></p>
 <p>Payment Status: <%= @order.payment.payment_status.titleize %></p>
 <% if @order.payment.nil? || @order.payment.payment_status == 'pending' %>
-  <%= button_to 'Make Payment', new_order_payment_path(@order), method: :get, class: 'btn btn-primary' %>
+  <%= button_to 'Make Payment', edit_order_payment_path(@order), method: :get, class: 'btn btn-primary' %>
 <% else %>
   <p>Payment Method: <%= @order.payment.payment_method.humanize %></p>
 <% end %>

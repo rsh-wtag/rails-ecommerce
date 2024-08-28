@@ -11,7 +11,10 @@ class CheckoutService
       order = create_order
       create_order_items(order)
       create_payment(order)
-
+      cart_items = @cart.cart_items
+      cart_items.each do |item|
+        item.destroy
+      end
       { success: true, order: }
     end
   rescue StandardError => e
