@@ -1,8 +1,8 @@
 class Payment < ApplicationRecord
   belongs_to :order
 
-  enum payment_method: { credit_card: 0, mobile_banking: 1, bank_transfer: 2, cash_on_delivery: 3 }
-  enum payment_status: { pending: 0, completed: 1, failed: 2 }
+  enum payment_method: %i[credit_card mobile_banking bank_transfer cash_on_delivery]
+  enum payment_status: %i[pending completed failed]
 
   validates :order_id, presence: true, uniqueness: true
   validates :payment_method, presence: true
