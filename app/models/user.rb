@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  enum role: { admin: 0, user: 1 }
+  enum role: %i[admin user].freeze
 
   has_secure_password
 
