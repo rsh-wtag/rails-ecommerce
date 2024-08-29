@@ -65,3 +65,8 @@ en:
             heading: "Your Order is Confirmed!"
             message: "Thank you for shopping with us. Your order with ID %{order_id} has been confirmed."
             thanks: "We appreciate your business and hope you enjoy your purchase!"
+en:
+  activerecord:
+    errors:
+      messages:
+        invalid_sku_format: "only allows uppercase letters and numbers"

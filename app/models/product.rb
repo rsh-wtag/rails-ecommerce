@@ -12,6 +12,6 @@ class Product < ApplicationRecord
   validates :SKU,
             allow_blank: true,
             length: { in: 8..12 },
-            format: { with: /\A[A-Z0-9]+\z/, message: 'only allows uppercase letters and numbers' },
+            format: { with: /\A[A-Z0-9]+\z/, message: :invalid_sku_format },
             uniqueness: true
 end
