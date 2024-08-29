@@ -4,43 +4,57 @@ RSpec.describe User, type: :model do
   subject { create(:user) }
 
   describe 'validations' do
-    it 'is valid with valid attributes' do
-      expect(subject).to be_valid
+    context 'with valid attributes' do
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
     end
 
-    it 'is not valid without a name' do
-      subject.name = nil
-      expect(subject).not_to be_valid
+    context 'when name is missing' do
+      it 'is not valid without a name' do
+        subject.name = nil
+        expect(subject).not_to be_valid
+      end
     end
 
-    it 'is not valid without an email' do
-      subject.email = nil
-      expect(subject).not_to be_valid
+    context 'when email is missing' do
+      it 'is not valid without an email' do
+        subject.email = nil
+        expect(subject).not_to be_valid
+      end
     end
 
-    it 'is not valid without a valid phone number' do
-      subject.phone = nil
-      expect(subject).not_to be_valid
+    context 'when phone number is invalid' do
+      it 'is not valid without a phone number' do
+        subject.phone = nil
+        expect(subject).not_to be_valid
+      end
     end
 
-    it 'is valid with a valid phone number' do
-      subject.phone = '+8801712345678'
-      expect(subject).to be_valid
+    context 'when phone number is valid' do
+      it 'is valid with a valid phone number' do
+        subject.phone = '+8801712345678'
+        expect(subject).to be_valid
+      end
     end
   end
 
   describe 'callbacks' do
-    it 'normalizes the phone number before saving' do
-      user = build(:user)
-      expect(user).to receive(:normalize_phone_number)
-      user.save
+    context 'before saving' do
+      it 'normalizes the phone number' do
+        user = build(:user)
+        expect(user).to receive(:normalize_phone_number)
+        user.save
+      end
     end
   end
 
   describe 'methods' do
-    it 'normalizes the phone number correctly' do
-      user = create(:user, phone: '+8801712345678')
-      expect(user.phone).to eq(PhonyRails.normalize_number('+8801712345678', default_country_code: 'BD'))
+    context '#normalize_phone_number' do
+      it 'normalizes the phone number correctly' do
+        user = create(:user, phone: '+8801712345678')
+        expect(user.phone).to eq(PhonyRails.normalize_number('+8801712345678', default_country_code: 'BD'))
+      end
     end
   end
 end

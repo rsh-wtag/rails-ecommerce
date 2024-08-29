@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   has_one :order_item
   has_many_attached :images
 
+  has_one_attached :image
+
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true
@@ -12,6 +14,6 @@ class Product < ApplicationRecord
   validates :SKU,
             allow_blank: true,
             length: { in: 8..12 },
-            format: { with: /\A[A-Z0-9]+\z/, message: 'only allows uppercase letters and numbers' },
+            format: { with: /\A[A-Z0-9]+\z/, message: :invalid_sku_format },
             uniqueness: true
 end
