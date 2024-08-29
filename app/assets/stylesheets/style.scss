@@ -1,73 +1,80 @@
+/* Navbar styling */
 .navbar {
-    margin-bottom: 30px;
-  }
-  
-  .jumbotron {
-    background-color: #f8f9fa;
-    padding: 2rem 1rem;
-    border-radius: 0.3rem;
-  }
-  
-  .footer {
-    background-color: #f8f9fa;
-    padding: 20px;
-  }
-  
-  .nav-link {
-    color: #007bff !important;
-  }
-  
-  .nav-link:hover {
-    color: #0056b3 !important;
-  }
-  
-  .card {
-    border: 1px solid #e3e6f0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-  }
-  
-  .card-text {
-    font-size: 0.9rem;
-  }
-  
-  .card-footer {
-    background-color: #f8f9fa;
-  }
-  /* Custom form styles */
-  .form-horizontal .form-group {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 30px;
+  padding-left: 1rem;  /* Add padding on left side */
+  padding-right: 1rem; /* Add padding on right side */
+}
 
-  .alert-danger {
-    margin-bottom: 1rem;
-  }
+/* Jumbotron styling */
+.jumbotron {
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+  border-radius: 0.3rem;
+}
 
-  .form-label {
-    font-weight: bold;
-  }
+/* Footer styling */
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
 
-  .carousel-control-prev,
-  .carousel-control-next {
-    filter: invert(50%) grayscale(100%); /* Light gray arrows */
-  }
+/* Navbar links */
+.nav-link {
+  color: #007bff !important;
+}
 
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .carousel-indicators li {
-    background-color: rgba(0, 0, 0, 0.5); /* Darker indicator dots */
-  }
+.nav-link:hover {
+  color: #0056b3 !important;
+}
 
-  .carousel-indicators .active {
-    background-color: rgba(0, 0, 0, 0.8); /* Darker active dot */
-  }
+/* Card styling */
+.card {
+  border: 1px solid #e3e6f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
 
+.card-text {
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+}
+
+/* Custom form styles */
+.form-horizontal .form-group {
+  margin-bottom: 1rem;
+}
+
+.alert-danger {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+/* Carousel styling */
+.carousel-control-prev,
+.carousel-control-next {
+  filter: invert(50%) grayscale(100%); /* Light gray arrows */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.carousel-indicators li {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker indicator dots */
+}
+
+.carousel-indicators .active {
+  background-color: rgba(0, 0, 0, 0.8); /* Darker active dot */
+}
