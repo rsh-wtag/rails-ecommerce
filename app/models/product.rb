@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   has_one :order_item
   has_many_attached :images
 
+  has_one_attached :image
+
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true

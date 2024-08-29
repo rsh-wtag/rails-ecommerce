@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  enum role: { admin: 0, user: 1 }
+  enum role: %i[admin user].freeze
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
