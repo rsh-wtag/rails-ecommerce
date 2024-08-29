@@ -31,7 +31,9 @@
     </tbody>
   </table>
   <div class="mt-3">
-    <%= link_to 'Edit this category', edit_category_path(@category), class: 'btn btn-warning btn-sm' %>
+    <% if current_user && current_user.admin? %>
+      <%= link_to 'Edit this category', edit_category_path(@category), class: 'btn btn-warning btn-sm' %>
+    <% end %>
     <%= link_to 'Back', categories_path, class: 'btn btn-secondary btn-sm' %>
   </div>
 </div>

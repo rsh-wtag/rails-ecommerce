@@ -7,10 +7,17 @@
     </div>
   </div>
   <div class="row">
-    <% @products.each do |product| %>
-      <div class="col-md-4 mb-4">
-        <%= render partial: 'product_card', locals: { product: product } %>
-      </div>
+    <% if @products.empty? %>
+      <h5>No products found</h5>
+    <% else %>
+      <% @products.each do |product| %>
+        <div class="col-md-4 mb-4">
+          <%= render partial: 'product_card', locals: { product: product } %>
+        </div>
+      <% end %>
     <% end %>
+  </div>
+  <div class="pagination-container d-flex justify-content-center mt-4">
+    <%== pagy_bootstrap_nav(@pagy) %>
   </div>
 </div>

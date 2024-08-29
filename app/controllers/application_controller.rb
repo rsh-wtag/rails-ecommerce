@@ -35,4 +35,6 @@ class ApplicationController < ActionController::Base
     end
     session_cart.destroy
   end
+
+  include Pagy::Backend
 end
