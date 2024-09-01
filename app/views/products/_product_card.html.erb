@@ -1,6 +1,6 @@
 <%= link_to product_path(product), class: 'text-decoration-none text-dark' do %>
   <div class="card h-100">
-    <div id="carousel-<%= product.id %>" class="carousel slide" data-bs-ride="carousel">
+    <div id="carousel-<%= product.id %>" class="carousel slide" data-bs-interval="false">
       <div class="carousel-inner">
         <% product.images.each_with_index do |image, index| %>
           <div class="carousel-item <%= 'active' if index == 0 %>">
