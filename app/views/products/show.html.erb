@@ -90,6 +90,7 @@
 <div class="mt-5">
   <h3>Reviews</h3>
   <% @product.reviews.each do |review| %>
+    <%= review.user&.name %>
     <%= review.rating %>
   <% end %>
 </div>
