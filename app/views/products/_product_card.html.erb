@@ -1,6 +1,6 @@
 <%= link_to product_path(product), class: 'text-decoration-none text-dark' do %>
   <div class="card h-100">
-    <div id="carousel-<%= product.id %>" class="carousel slide" data-bs-ride="carousel">
+    <div id="carousel-<%= product.id %>" class="carousel slide" data-bs-interval="false">
       <div class="carousel-inner">
         <% product.images.each_with_index do |image, index| %>
           <div class="carousel-item <%= 'active' if index == 0 %>">
@@ -8,6 +8,14 @@
           </div>
         <% end %>
       </div>
+      <a class="carousel-control-prev" href="#carousel-<%= product.id %>" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carousel-<%= product.id %>" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
     </div>
     <div class="card-body">
       <h5 class="card-title">

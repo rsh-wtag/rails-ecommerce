@@ -3,14 +3,17 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy delete_image]
 
   def index
-    @products = Product.all
+    search
   end
 
   def show
+    # redirect_to search_products_path(q: params[:q]) and return if params[:id] == 'search'
+
+    # @product = Product.find(params[:id])
   end
 
   def new
-    @product = Product.new
+    @pagy, @product = Product.new
   end
 
   def edit
@@ -58,5 +61,13 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :stock_quantity, :SKU, category_ids: [], images: [])
+  end
+
+  def search
+    @pagy, @products = if params[:q].present?
+                         pagy(Product.where('name ILIKE ?', "%#{params[:q]}%"))
+                       else
+                         pagy(Product.all)
+                       end
   end
 end

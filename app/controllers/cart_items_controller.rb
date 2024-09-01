@@ -29,7 +29,7 @@ class CartItemsController < ApplicationController
         @cart.cart_items.create!(cart_item_params)
       end
 
-      @product.update!(stock_quantity: @product.stock_quantity - quantity)
+      # @product.update!(stock_quantity: @product.stock_quantity - quantity)
 
       @cart.update!(item_count: @cart.cart_items.sum(:quantity))
     end
@@ -48,7 +48,7 @@ class CartItemsController < ApplicationController
 
   def update
     if @cart_item.update(cart_item_params)
-      redirect_to user_cart_path(@cart_item.cart.user), notice: I18n.t('cart_items.update.success')
+      redirect_to cart_path(@cart_item.cart.user), notice: I18n.t('cart_items.update.success')
     else
       render :edit
     end

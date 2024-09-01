@@ -7,6 +7,7 @@ class Ability
     else
       can :read, :all
       can :email_preview, Order
+      cannot :index, User
     end
   end
 end

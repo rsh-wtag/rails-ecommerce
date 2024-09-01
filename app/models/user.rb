@@ -6,10 +6,12 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  enum role: { admin: 0, user: 1 }
+  enum role: %i[admin user].freeze
+
+  EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_REGEX }
   validates :address, presence: true
   validates :phone, presence: true, phony_plausible: true
 

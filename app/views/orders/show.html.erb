@@ -12,7 +12,7 @@
       <p><strong>Shipping Status:</strong> <%= @order.shipping_status.humanize %></p>
       <p><strong>Payment Status:</strong> <%= @order.payment.nil? ? 'Not Paid' : @order.payment.payment_status.titleize %></p>
       <% if @order.payment.nil? || @order.payment.payment_status == 'pending' %>
-        <%= button_to 'Make Payment', new_order_payment_path(@order), method: :get, class: 'btn btn-primary' %>
+        <%= button_to 'Make Payment', edit_order_payment_path(@order), method: :get, class: 'btn btn-primary' %>
       <% else %>
         <p><strong>Payment Method:</strong> <%= @order.payment.payment_method.humanize %></p>
       <% end %>

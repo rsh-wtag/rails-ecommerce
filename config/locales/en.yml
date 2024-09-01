@@ -76,7 +76,6 @@ en:
     update:
       success: "Order was successfully updated."
     destroy:
-      success: "Order was successfully destroyed."
-    email_preview:
-      success: "Email preview generated successfully."
-      failed: "Failed to generate email preview."
+      success: "Product was successfully deleted."
+    images:
+      delete_success: "Image removed successfully."
