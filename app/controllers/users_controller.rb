@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_admin, only: %i[all_users index destroy]
+  load_and_authorize_resource
   before_action :set_user, only: %i[show edit update destroy]
 
-  def all_users
+  def index
     @users = User.all
   end
 

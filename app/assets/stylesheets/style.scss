@@ -12,12 +12,6 @@
   border-radius: 0.3rem;
 }
 
-/* Footer styling */
-.footer {
-  background-color: #f8f9fa;
-  padding: 20px;
-}
-
 /* Navbar links */
 .nav-link {
   color: #007bff !important;
@@ -77,4 +71,19 @@
 
 .carousel-indicators .active {
   background-color: rgba(0, 0, 0, 0.8); /* Darker active dot */
+}
+
+      /* Flexbox layout to ensure footer stays at the bottom */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1; /* Take up remaining space */
+}
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
