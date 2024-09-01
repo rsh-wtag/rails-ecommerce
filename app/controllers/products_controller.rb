@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @pagy, @product = Product.new
+    @product = Product.new
   end
 
   def edit

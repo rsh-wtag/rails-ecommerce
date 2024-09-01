@@ -25,6 +25,11 @@
       <p class="card-text"><strong>Price:</strong> <%= number_to_currency(product.price, unit: "", format: "%n BDT") %></p>
       <p class="card-text"><strong>Stock:</strong> <%= product.stock_quantity %></p>
       <p class="card-text"><strong>SKU:</strong> <%= product.SKU %></p>
+      <% if current_user&.admin? %>
+        <%= button_to product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger mt-3' do %>
+          <i class="bi bi-trash"></i> Delete
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>
