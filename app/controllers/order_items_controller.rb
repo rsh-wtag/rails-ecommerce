@@ -15,7 +15,7 @@ class OrderItemsController < ApplicationController
   def create
     @order_item = OrderItem.new(order_item_params)
     if @order_item.save
-      redirect_to @order_item, notice: 'Order item was successfully created.'
+      redirect_to @order_item, notice: I18n.t('order_items.create.success')
     else
       render :new
     end
@@ -26,7 +26,7 @@ class OrderItemsController < ApplicationController
 
   def update
     if @order_item.update(order_item_params)
-      redirect_to @order_item, notice: 'Order item was successfully updated.'
+      redirect_to @order_item, notice: I18n.t('order_items.update.success')
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item.destroy
-    redirect_to order_items_url, notice: 'Order item was successfully destroyed.'
+    redirect_to order_items_url, notice: I18n.t('order_items.destroy.success')
   end
 
   private

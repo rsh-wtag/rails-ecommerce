@@ -19,7 +19,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
 
     if @payment.save
-      redirect_to @payment, notice: 'Payment was successfully created.'
+      redirect_to @payment, notice: I18n.t('payments.create.success')
     else
       render :new
     end
@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
 
   def update
     if @payment.update(payment_params)
-      redirect_to @payment, notice: 'Payment was successfully updated.'
+      redirect_to @payment, notice: I18n.t('payments.update.success')
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class PaymentsController < ApplicationController
 
   def destroy
     @payment.destroy
-    redirect_to payments_url, notice: 'Payment was successfully destroyed.'
+    redirect_to payments_url, notice: I18n.t('payments.destroy.success')
   end
 
   private

@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
     @review = @product.reviews.build(review_params)
 
     if @review.save
-      redirect_to @product, notice: 'Review was successfully created.'
+      redirect_to @product, notice: I18n.t('reviews.create.success')
     else
       render :new, status: :unprocessable_entity
     end

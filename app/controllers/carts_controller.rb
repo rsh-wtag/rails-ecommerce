@@ -7,7 +7,7 @@ class CartsController < ApplicationController
     @cart.item_count = 0
 
     if @cart.save
-      redirect_to user_cart_path(@user), notice: 'Cart was successfully created.'
+      redirect_to user_cart_path(@user), notice: I18n.t('carts.create.success')
     else
       render :new
     end
@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 
   def update
     if @cart.update(cart_params)
-      redirect_to user_cart_path(@user), notice: 'Cart was successfully updated.'
+      redirect_to user_cart_path(@user), notice: I18n.t('carts.update.success')
     else
       render :edit
     end
@@ -30,7 +30,7 @@ class CartsController < ApplicationController
 
   def destroy
     @cart.destroy
-    redirect_to root_path, notice: 'Cart was successfully destroyed.'
+    redirect_to root_path, notice: I18n.t('carts.destroy.success')
   end
 
   private
