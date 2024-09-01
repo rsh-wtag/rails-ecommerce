@@ -7,7 +7,7 @@
     <div class="card-body">
       <p><strong>Order Date:</strong> <%= @order.order_date %></p>
       <p><strong>Order Status:</strong> <%= @order.status.humanize %></p>
-      <p><strong>Total Amount:</strong> <%= number_to_currency(@order.total_amount) %></p>
+      <p><strong>Total Amount:</strong> <%= number_to_currency(@order.total_amount, unit: "", format: "%n BDT") %></p>
       <p><strong>Shipping Address:</strong> <%= @order.shipping_address %></p>
       <p><strong>Shipping Status:</strong> <%= @order.shipping_status.humanize %></p>
       <p><strong>Payment Status:</strong> <%= @order.payment.nil? ? 'Not Paid' : @order.payment.payment_status.titleize %></p>
@@ -33,8 +33,8 @@
         <tr>
           <td><%= item.product.name %></td>
           <td><%= item.quantity %></td>
-          <td><%= number_to_currency(item.price) %></td>
-          <td><%= number_to_currency(item.price * item.quantity) %></td>
+          <td><%= number_to_currency(item.price, unit: "", format: "%n BDT") %></td>
+          <td><%= number_to_currency(item.price * item.quantity, unit: "", format: "%n BDT") %></td>
         </tr>
       <% end %>
     </tbody>

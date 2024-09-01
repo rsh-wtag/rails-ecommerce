@@ -54,17 +54,20 @@
               <% full_stars = average_rating.floor %>
               <% has_half_star = average_rating - full_stars >= 0.5 %>
               <% empty_stars = 5 - full_stars - (has_half_star ? 1 : 0) %>
-              <!-- Render Full Stars -->
               <% full_stars.times do %>
-                <i class="fas fa-star" style="color: gold;"></i> <!-- Filled star -->
+                <i class="fas fa-star" style="color: gold;"></i>
               <% end %>
-              <!-- Render Half Star -->
               <% if has_half_star %>
-                <i class="fas fa-star-half-alt" style="color: gold;"></i> <!-- Half-filled star -->
+                <i class="fas fa-star-half-alt" style="color: gold;"></i>
               <% end %>
-              <!-- Render Empty Stars -->
               <% empty_stars.times do %>
-                <i class="far fa-star" style="color: gold;"></i> <!-- Empty star -->
+                <i class="far fa-star" style="color: gold;"></i>
+              <% end %>
+              <% review_count = @product.reviews.count %>
+              <% if review_count > 0 %>
+                <span class="text-muted">(<%= review_count %> review<%= 's' if review_count > 1 %>)</span>
+              <% else %>
+                <span class="text-muted">(No reviews yet)</span>
               <% end %>
             </dd>
             <% unless current_user&.admin? %>
@@ -116,7 +119,7 @@
               <span class="text-muted">-</span>
               <span class="ms-2 d-flex align-items-center">
                 <%= review.rating %>
-                <span class="ms-1 text-warning">&#9733;</span> <!-- Unicode star character -->
+                <span class="ms-1 text-warning">&#9733;</span>
               </span>
             </h5>
             <p class="card-text"><%= simple_format(review.comment) %></p>

@@ -15,8 +15,8 @@
         <tr>
           <td class="text-center"><%= item.product.name %></td>
           <td class="text-center"><%= item.quantity %></td>
-          <td class="text-center"><%= number_to_currency(item.product.price) %></td>
-          <td class="text-center"><%= number_to_currency(item.product.price * item.quantity) %></td>
+          <td class="text-center"><%= number_to_currency(item.product.price, unit: "", format: "%n BDT") %></td>
+          <td class="text-center"><%= number_to_currency(item.product.price * item.quantity, unit: "", format: "%n BDT") %></td>
           <td class="text-center">
             <div style="display: flex; gap: 10px; justify-content: center;">
               <%= link_to 'Edit', edit_cart_cart_item_path(@cart, item), class: 'btn btn-sm btn-warning' %>
@@ -29,7 +29,7 @@
     <tfoot>
       <tr>
         <td colspan="3" class="text-right"><strong>Total:</strong></td>
-        <td class="text-center"><strong><%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></strong></td>
+        <td class="text-center"><strong><%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }, unit: "", format: "%n BDT") %></strong></td>
         <td></td>
       </tr>
     </tfoot>
