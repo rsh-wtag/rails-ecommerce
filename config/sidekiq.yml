@@ -1,6 +1,6 @@
-# :concurrency: 5
-# :schedule:
-#     send_signup_email:
-#         cron: "*/5 * * * *" # Every 5 minutes (adjust as needed)
-#         class: "SendSignupEmailJob"
-#         queue: mailers
+:concurrency: 5
+:schedule:
+    send_signup_email:
+        cron: "*/2 * * * *"
+        class: "SendSignupEmailJob"
+        queue: mailers

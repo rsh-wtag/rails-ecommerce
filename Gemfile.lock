@@ -442,6 +442,9 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  letter_opener
+  letter_opener_web
+  pagy (~> 9.0)
   pg
   phony_rails
   pry
