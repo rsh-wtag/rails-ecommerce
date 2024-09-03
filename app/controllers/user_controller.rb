@@ -1,34 +1,46 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_admin, only: %i[admin_dashboard manage_orders manage_products manage_categories]
+  load_and_authorize_resource
+  before_action :set_user, only: %i[show edit update destroy]
+
+  def index
+    @users = User.all
+  end
 
   def show
-    @user = current_user
+    redirect_to edit_user_path if current_user != @user && !current_user.admin?
   end
 
-  def admin_dashboard
-    @categories = Category.all
-    @products = Product.all
-    @orders = Order.all
+  def edit
   end
 
-  def manage_orders
-    @orders = Order.all
+  def update
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'Profile updated successfully.'
+    else
+      render :edit
+    end
   end
 
-  def manage_products
-    @products = Product.all
-  end
-
-  def manage_categories
-    @categories = Category.all
+  def destroy
+    if @user.destroy
+      redirect_to users_path, notice: 'User was successfully deleted.'
+    else
+      redirect_to users_path, alert: 'Error deleting user.'
+    end
   end
 
   private
 
-  def authorize_admin
-    return if current_user&.admin?
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    redirect_to root_path, alert: 'Access denied.'
+  def user_params
+    params.require(:user).permit(:role)
+  end
+
+  def authorize_admin
+    redirect_to root_path, alert: 'Access denied.' unless current_user&.admin?
   end
 end
