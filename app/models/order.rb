@@ -1,11 +1,11 @@
-class Payment < ApplicationRecord
-  belongs_to :order
+class Order < ApplicationRecord
+  belongs_to :user
+  has_one :payment, dependent: :destroy
 
-  enum payment_method: %i[credit_card mobile_banking bank_transfer cash_on_delivery].freeze
-  enum payment_status: %i[pending completed failed].freeze
+  enum status: %i[pending confirmed cancelled].freeze
+  enum shipping_status: %i[not_shipped in_transit delivered].freeze
 
-  validates :order_id, presence: true, uniqueness: true
-  validates :payment_method, presence: true
-  validates :payment_status, presence: true
-  validates :payment_date, presence: true
+  validates :order_date, presence: true
+  validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :shipping_address, presence: true
 end
