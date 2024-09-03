@@ -7,9 +7,10 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  EMAIL_REGEX = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_REGEX }
   validates :address, presence: true
   validates :phone, presence: true, phony_plausible: true
 
