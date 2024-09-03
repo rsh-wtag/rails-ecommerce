@@ -3,8 +3,8 @@ class Order < ApplicationRecord
   has_many :order_items
   has_one :payment, dependent: :destroy
 
-  enum status: { pending: 0, confirmed: 1, cancelled: 2 }
-  enum shipping_status: { not_shipped: 0, in_transit: 1, delivered: 2 }
+  enum status: %i[pending confirmed cancelled].freeze
+  enum shipping_status: %i[not_shipped in_transit delivered].freeze
 
   validates :order_date, presence: true
   validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }

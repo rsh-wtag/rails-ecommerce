@@ -79,3 +79,9 @@ en:
       success: "Product was successfully deleted."
     images:
       delete_success: "Image removed successfully."
+      
+en:
+  activerecord:
+    errors:
+      messages:
+        invalid_sku_format: "only allows uppercase letters and numbers"

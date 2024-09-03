@@ -21,7 +21,7 @@
           <tr>
             <td><%= order.id %></td>
             <td><%= order.user.name %></td>
-            <td><%= number_to_currency(order.total_amount) %></td>
+            <td><%= number_to_currency(order.total_amount, unit: "", format: "%n BDT") %></td>
             <td><%= order.status.humanize %></td>
             <td class="text-center">
               <%= link_to 'View', order_path(order), class: 'btn btn-info btn-sm' %>

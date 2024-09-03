@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   has_and_belongs_to_many :categories
-  has_one :cart_item
-  has_many :reviews
+  has_one :cart_item, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_one :order_item
   has_many_attached :images
 

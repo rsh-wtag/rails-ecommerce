@@ -7,13 +7,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # redirect_to search_products_path(q: params[:q]) and return if params[:id] == 'search'
-
-    # @product = Product.find(params[:id])
   end
 
   def new
-    @pagy, @product = Product.new
+    @product = Product.new
   end
 
   def edit

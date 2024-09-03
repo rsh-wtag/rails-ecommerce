@@ -15,24 +15,6 @@ class PaymentsController < ApplicationController
       flash[:alert] = I18n.t('payments.create.failed')
     end
     redirect_to order_path(@order)
-    # if @order.payment
-    #   flash[:alert] = I18n.t('payments.create.exists')
-    #   redirect_to order_path(@order)
-    # else
-    #   @payment = @order.build_payment(payment_params.merge(payment_status: :completed, payment_date: Time.current))
-    #   if @payment.save
-    #     flash[:notice] = I18n.t('payments.create.success')
-    #     @user = @order.user
-    #     @user.cart.cart_items.destroy_all
-    #     @user.cart.update(item_count: 0)
-
-    #     OrderMailer.order_confirmation(@order).deliver_later
-
-    #     redirect_to order_path(@order)
-    #   else
-    #     render :new
-    #   end
-    # end
   end
 
   private
