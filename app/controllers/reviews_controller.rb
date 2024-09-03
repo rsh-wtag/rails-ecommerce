@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to @review, notice: I18n.t('reviews.update.success')
+      redirect_to @product, notice: I18n.t('reviews.update.success')
     else
       render :edit
     end
