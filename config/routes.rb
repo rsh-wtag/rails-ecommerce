@@ -54,7 +54,6 @@ Rails.application.routes.draw do
   resource :user, only: %i[show edit update]
 
   namespace :admin do
-    # resources :orders, only: %i[index show update destroy]
     resources :products, only: %i[index new create edit update destroy]
     resources :categories, only: %i[index new create edit update destroy]
     resources :users, only: %i[index destroy]
