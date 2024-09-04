@@ -1,48 +1,81 @@
-class CartsController < ApplicationController
-  before_action :set_cart, only: %i[show edit update destroy checkout]
+class CartItemsController < ApplicationController
+  before_action :set_cart_item, only: %i[edit update destroy]
+  before_action :set_cart, only: %i[create]
 
   def create
-    @cart = Cart.new(cart_params)
-    session[:cart_id] = @cart.id if @cart.save
+    product_id = params[:cart_item][:product_id]
+    quantity = params[:cart_item][:quantity].to_i
 
-    if @cart.save
-      redirect_to cart_path, notice: I18n.t('carts.create.success')
+    if current_user
+      @cart = current_user.cart
+      existing_cart_item = @cart.cart_items.find_by(product_id:)
     else
-      render :new
+      @cart = Cart.find_by(id: session[:cart_id]) || Cart.create
+      session[:cart_id] = @cart.id
+      existing_cart_item = @cart.cart_items.find_by(product_id:)
     end
+
+    @product = Product.find(product_id)
+
+    if @product.stock_quantity < quantity
+      redirect_back fallback_location: root_path, alert: I18n.t('cart_items.create.insufficient_stock')
+      return
+    end
+
+    ActiveRecord::Base.transaction do
+      if existing_cart_item
+        existing_cart_item.update!(quantity: existing_cart_item.quantity + quantity)
+      else
+        @cart.cart_items.create!(cart_item_params)
+      end
+
+      # @product.update!(stock_quantity: @product.stock_quantity - quantity)
+
+      @cart.update!(item_count: @cart.cart_items.sum(:quantity))
+    end
+
+    if current_user
+      redirect_to user_cart_path(current_user), notice: I18n.t('cart_items.create.success')
+    else
+      redirect_to root_path, notice: I18n.t('cart_items.create.success')
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound
+    redirect_back fallback_location: root_path, alert: I18n.t('cart_items.create.error')
   end
 
-  def show
-    @cart_items = @cart.cart_items.includes(:product)
+  def edit
   end
 
   def update
-    @cart.update(cart_params)
+    if @cart_item.update(cart_item_params)
+      redirect_to cart_path(@cart_item.cart.user), notice: I18n.t('cart_items.update.success')
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @cart.destroy
-    redirect_to root_path, notice: I18n.t('carts.destroy.success')
-  end
+    @cart_item = CartItem.find(params[:id])
+    quantity = @cart_item.quantity
+    product = @cart_item.product
 
-  def checkout
-    if current_user
-      if session[:cart_id] && session[:cart_id] != current_user.cart.id
-        merge_carts(current_user.cart, Cart.find(session[:cart_id]))
-        session.delete(:cart_id)
-      end
+    ActiveRecord::Base.transaction do
+      @cart_item.destroy!
 
-      result = CheckoutService.new(current_user, current_user.cart).call
+      product.update!(stock_quantity: product.stock_quantity + quantity)
 
-      if result[:success]
-        redirect_to order_path(result[:order]), notice: I18n.t('checkout.success')
+      if current_user
+        @cart = current_user.cart
+        @cart.update!(item_count: @cart.cart_items.sum(:quantity))
+        redirect_to user_cart_path(current_user), notice: I18n.t('cart_items.destroy.success')
       else
-        redirect_to user_cart_path(current_user), alert: I18n.t('checkout.failed', error: result[:error])
+        @cart = Cart.find(session[:cart_id])
+        @cart.update!(item_count: @cart.cart_items.sum(:quantity))
+        redirect_to cart_path(@cart), notice: I18n.t('cart_items.destroy.success')
       end
-    else
-      session[:checkout_redirect] = request.path
-      redirect_to new_user_session_path, alert: I18n.t('checkout.sign_in_required')
     end
+  rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid
+    redirect_back fallback_location: root_path, alert: I18n.t('cart_items.destroy.error')
   end
 
   private
@@ -51,12 +84,18 @@ class CartsController < ApplicationController
     @cart = if current_user
               current_user.cart
             else
-              Cart.find_by(id: session[:cart_id]) || Cart.create
+              Cart.find(session[:cart_id])
             end
-    session[:cart_id] ||= @cart.id unless current_user
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
   end
 
-  def cart_params
-    params.require(:cart).permit(:item_count)
+  def set_cart_item
+    @cart_item = CartItem.find(params[:id])
+  end
+
+  def cart_item_params
+    params.require(:cart_item).permit(:product_id, :quantity)
   end
 end
