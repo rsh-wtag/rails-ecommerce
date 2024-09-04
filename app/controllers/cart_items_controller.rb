@@ -29,8 +29,6 @@ class CartItemsController < ApplicationController
         @cart.cart_items.create!(cart_item_params)
       end
 
-      # @product.update!(stock_quantity: @product.stock_quantity - quantity)
-
       @cart.update!(item_count: @cart.cart_items.sum(:quantity))
     end
 

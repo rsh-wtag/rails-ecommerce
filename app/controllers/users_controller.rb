@@ -16,17 +16,17 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: 'Profile updated successfully.'
+      redirect_to user_path(@user), notice: I18n.t('users.update.success')
     else
-      render :edit
+      render :edit, alert: I18n.t('users.update.failed')
     end
   end
 
   def destroy
     if @user.destroy
-      redirect_to users_path, notice: 'User was successfully deleted.'
+      redirect_to users_path, notice: I18n.t('users.destroy.success')
     else
-      redirect_to users_path, alert: 'Error deleting user.'
+      redirect_to users_path, alert: I18n.t('users.destroy.failed')
     end
   end
 
@@ -41,6 +41,6 @@ class UsersController < ApplicationController
   end
 
   def authorize_admin
-    redirect_to root_path, alert: 'Access denied.' unless current_user&.admin?
+    redirect_to root_path, alert: I18n.t('users.access_denied') unless current_user&.admin?
   end
 end
