@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_order
   before_action :check_stock, only: %w[edit update]
 
