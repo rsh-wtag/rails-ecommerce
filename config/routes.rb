@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :orders
   end
 
+  get 'users/all_users', to: 'users#all_users', as: :all_users
+
   resources :products do
     resources :reviews
   end
@@ -49,13 +51,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :dashboard, only: [:show], controller: 'users', as: 'user_dashboard'
+  resource :user, only: %i[show edit update]
 
-  # Admin routes
   namespace :admin do
-    resource :dashboard, only: [:show], controller: 'users', as: 'admin_dashboard'
-    resources :orders, only: %i[index show update destroy]
     resources :products, only: %i[index new create edit update destroy]
     resources :categories, only: %i[index new create edit update destroy]
+    resources :users, only: %i[index destroy]
+  end
+
+  resources :products do
+    get 'delete_image/:image_id', to: 'products#delete_image', as: :delete_image
   end
 end
