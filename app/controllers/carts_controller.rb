@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_cart, only: %i[show edit update destroy checkout]
 
   def create
@@ -59,18 +58,5 @@ class CartsController < ApplicationController
 
   def cart_params
     params.require(:cart).permit(:item_count)
-  end
-
-  def merge_carts(user_cart, session_cart)
-    session_cart.cart_items.each do |item|
-      existing_item = user_cart.cart_items.find_by(product_id: item.product_id)
-
-      if existing_item
-        existing_item.update(quantity: existing_item.quantity + item.quantity)
-      else
-        item.update(cart_id: user_cart.id)
-      end
-    end
-    session_cart.destroy
   end
 end
