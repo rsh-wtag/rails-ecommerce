@@ -22,6 +22,8 @@ en:
             success: "Checkout completed successfully. Thank you for your purchase!"
             failed: "Checkout failed: %{error}. Please try again."
             sign_in_required: "Please sign in to proceed with the checkout."
+        merge:
+            success: "Items from your browser session have been added to your cart."
 
     categories:
         create:
