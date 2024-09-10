@@ -1,4 +1,10 @@
 <h1>Your Cart</h1>
+<% if user_signed_in? %>
+  <div class="alert alert-warning" role="alert">
+    Inactive carts will be cleared after 7 days. Place the order to secure your favorite items!
+    <a href="#" id="learn-more-link">Learn more</a>
+  </div>
+<% end %>
 <% if @cart.cart_items.any? %>
   <table class="table">
     <thead>
@@ -52,7 +58,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Do You like to place the order?
+        Do you want to place the order?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -61,3 +67,14 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const learnMoreLink = document.getElementById('learn-more-link');
+    if (learnMoreLink) {
+      learnMoreLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('If you haven\'t added any new items for 7 days, your cart will be cleared. Thank you for your understanding.');
+      });
+    }
+  });
+</script>
