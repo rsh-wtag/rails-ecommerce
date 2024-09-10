@@ -1,5 +1,5 @@
 <h1>Your Cart</h1>
-<% if user_signed_in? %>
+<% if user_signed_in? && @cart.cart_items.any? %>
   <div class="alert alert-warning" role="alert">
     Inactive carts will be cleared after 7 days. Place the order to secure your favorite items!
     <a href="#" id="learn-more-link">Learn more</a>
