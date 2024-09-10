@@ -9,6 +9,7 @@ class Ability
       can :read, :all
       cannot :index, User
       can :update, Payment, user_id: user.id
+      can :destroy, Order
     end
   end
 end

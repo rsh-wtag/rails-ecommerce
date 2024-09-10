@@ -23,8 +23,12 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order.destroy
-    redirect_to orders_path, notice: I18n.t('orders.destroy.success')
+    if @order.payment.nil? || @order.payment.payment_status == 'pending'
+      @order.destroy
+      redirect_to orders_path, notice: I18n.t('orders.destroy.success')
+    else
+      redirect_to order_path(@order), alert: 'Order cannot be deleted after payment has been made.'
+    end
   end
 
   private
