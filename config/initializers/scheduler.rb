@@ -3,7 +3,7 @@ require 'rufus-scheduler'
 if Rails.env.development? || Rails.env.production?
   scheduler = Rufus::Scheduler.singleton
 
-  scheduler.cron '* * * * *' do
+  scheduler.cron '0 0 * * *' do
     Rails.logger.info 'Cleaning up inactive carts and old cart items...'
 
     Cart.where(user_id: nil).where('created_at < ?', 1.day.ago).find_each do |cart|

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: %i[show update destroy]
   load_and_authorize_resource
-  before_action :set_order, only: %i[show email_preview update destroy]
 
   def index
     @orders = if current_user.admin?
@@ -13,21 +13,16 @@ class OrdersController < ApplicationController
   def show
   end
 
-  def email_preview
-    @email_content = OrderMailer.order_confirmation(@order).body.raw_source.html_safe
-  end
-
   def update
-    authorize! :update, @order
     if @order.update(order_params)
-      redirect_to order_path(@order), notice: I18n.t('orders.update.success')
+      SendOrderConfirmationEmailJob.perform_later(@order.id)
+      redirect_to @order, notice: I18n.t('orders.update.success')
     else
       render :edit
     end
   end
 
   def destroy
-    authorize! :destroy, @order
     @order.destroy
     redirect_to orders_path, notice: I18n.t('orders.destroy.success')
   end

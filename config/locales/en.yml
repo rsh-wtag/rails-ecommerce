@@ -66,7 +66,7 @@ en:
         update:
             success: "Payment details were successfully updated."
             failed: "There was an error updating the payment details. Please try again."
-
+        already_completed: "Payment has already been completed. No further updates are allowed."
     product:
         stock:
             out: "Insufficient stock for product %{product_name}. Please reduce the quantity or select another product."
@@ -109,10 +109,13 @@ en:
 
     order_mailer:
         order_confirmation:
-            subject: "Order Confirmation - Order ID: %{order_id}"
-            heading: "Your Order is Confirmed!"
-            message: "Thank you for shopping with us. Your order with ID %{order_id} has been confirmed."
-            thanks: "We appreciate your business and hope you enjoy your purchase!"
+            subject: "Order Confirmation - Order #%{order_id}"
+            greeting: "Hello %{name},"
+            body: "Thank you for your order! Your order number is %{order_id}."
+            thank_you: "We appreciate your business."
+            view_order: "To view your order details, click the link below:"
+            order_link: "View Order"
+            footer: "If you have any questions, please contact us at support@wellshopping.io."
 
     activerecord:
         errors:
