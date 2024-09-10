@@ -15,11 +15,10 @@ class ApplicationController < ActionController::Base
   private
 
   def call_custom_action
-    nil unless user_signed_in?
-
     return unless session[:cart_id] && session[:cart_id] != current_user.cart.id
 
-    merge_carts(current_user.cart, Cart.find(session[:cart_id]))
+    session_cart = Cart.find(session[:cart_id])
+    flash[:notice] = I18n.t('carts.merge.success') if merge_carts(current_user.cart, session_cart)
     session.delete(:cart_id)
   end
 
@@ -34,6 +33,7 @@ class ApplicationController < ActionController::Base
       end
     end
     session_cart.destroy
+    true
   end
 
   include Pagy::Backend
