@@ -35,6 +35,6 @@ class User < ApplicationRecord
   end
 
   def schedule_welcome_email
-    SendSignupEmailJob.set(wait: 10.seconds).perform_async(id)
+    SendSignupEmailJob.set(wait: 2.seconds).perform_async(id)
   end
 end
