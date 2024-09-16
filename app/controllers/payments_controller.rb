@@ -11,7 +11,7 @@ class PaymentsController < ApplicationController
   def update
     @payment = @order.payment
     if @payment.update(payment_params.merge(payment_status: :completed, payment_date: Time.current))
-      SendOrderConfirmationEmailJob.set(wait: 10.seconds).perform_async(@order.id)
+      PaymentMailer.payment_confirmation(@order).deliver_now
       update_product_stock
       flash[:notice] = I18n.t('payments.create.success')
     else

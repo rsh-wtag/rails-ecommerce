@@ -62,9 +62,9 @@ class ProductsController < ApplicationController
 
   def search
     @pagy, @products = if params[:q].present?
-                         pagy(Product.where('name ILIKE ?', "%#{params[:q]}%"))
+                         pagy(Product.where('name ILIKE ?', "%#{params[:q]}%").order(id: :asc))
                        else
-                         pagy(Product.all)
+                         pagy(Product.order(id: :asc))
                        end
   end
 end

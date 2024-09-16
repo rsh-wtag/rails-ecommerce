@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def update
     if @order.update(order_params)
-      SendOrderConfirmationEmailJob.perform_later(@order.id)
+      send_order_mail
       redirect_to @order, notice: I18n.t('orders.update.success')
     else
       render :edit
@@ -45,5 +45,11 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:status, :shipping_status)
+  end
+
+  def send_order_mail
+    return unless @order.confirmed? || @order.cancelled?
+
+    SendOrderConfirmationEmailJob.perform_async(@order.id)
   end
 end
