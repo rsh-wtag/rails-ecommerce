@@ -27,13 +27,16 @@ gem 'rubocop'
 gem 'rubocop-rails'
 gem 'rufus-scheduler'
 gem 'sassc-rails'
-gem 'sidekiq'
+gem 'sidekiq', '~> 7.3'
+gem 'sidekiq-scheduler'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 
 group :development do
+  gem 'letter_opener'
+  gem 'letter_opener_web'
   gem 'web-console'
 end
 
